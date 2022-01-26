@@ -1,116 +1,148 @@
-import tkinter
 from tkinter import *
 
+root = Tk()
+root.title("Calculator")
+root.iconbitmap("calculator.ico")
 
-def btn_num(num):
-    current = Display.get()
-    Display.delete(0, END)
-
-    value.set(str(current) + str(num))
+e = Entry(root, width=35, justify="right")
+e.grid(columnspan=4)
 
 
-def add():
-    first_number = Display.get()
+# function of button
+def button_click(number):
+    current = e.get()
+    e.delete(0, END)
+    e.insert(0, str(current) + str(number))
+
+
+def button_clear():
+    e.delete(0, END)
+
+
+def button_add():
+    first_number = e.get()
     global f_num
     global math
     math = "addition"
-    f_num = int(first_number)
-    Display.delete(0, END)
+    f_num = eval(first_number)
+    e.delete(0, END)
 
 
-def substraction():
-    first_number = Display.get()
+def button_subtract():
+    first_number = e.get()
     global f_num
     global math
-    math = "substraction"
-    f_num = int(first_number)
-    Display.delete(0, END)
+    math = "subtraction"
+    f_num = eval(first_number)
+    e.delete(0, END)
 
 
-def multiplication():
-    first_number = Display.get()
+def button_multiply():
+    first_number = e.get()
     global f_num
     global math
     math = "multiplication"
-    f_num = int(first_number)
-    Display.delete(0, END)
+    f_num = eval(first_number)
+    e.delete(0, END)
 
 
-def division():
-    first_number = Display.get()
+def button_divide():
+    first_number = e.get()
     global f_num
     global math
-    math = "division"
-    f_num = int(first_number)
-    Display.delete(0, END)
+    math = "dividsion"
+    f_num = eval(first_number)
+    e.delete(0, END)
 
 
-def equal():
-    second_number = Display.get()
-    Display.delete(0, END)
+def button_sqt():
+    number = eval(e.get())
+    e.delete(0, END)
+    e.insert(0, f"{number ** 0.5}")
+    global math
+    math = "square root"
+
+
+def button_square():
+    number = eval(e.get())
+    e.delete(0, END)
+    e.insert(0, f"{number ** 2}")
+    global math
+    math = "square"
+
+
+def button_equal():
+    second_number = e.get()
+    e.delete(0, END)
     if math == "addition":
-        value.set(f_num + int(second_number))
+        e.insert(0, f"{f_num + eval(second_number)}")
 
-    elif math == "substraction":
-        value.set(f_num - int(second_number))
+    if math == "subtraction":
+        e.insert(0, f"{f_num - eval(second_number)}")
 
-    elif math == "multiplication":
-        value.set(f_num * int(second_number))
+    if math == "multiplication":
+        e.insert(0, f"{f_num * eval(second_number)}")
 
-    else:
-        value.set(f_num / int(second_number))
+    if math == "dividsion":
+        e.insert(0, f"{f_num / eval(second_number)}")
+
+    if math == "square root":
+        number = eval(second_number)
+        e.insert(0, f"{number ** 0.5}")
+
+    if math == "square":
+        number = eval(second_number)
+        e.insert(0, f"{number ** 2}")
 
 
-def clear():
-    Display.delete(0, END)
+# Define the buttons
+button_1 = Button(root, text="1", padx=40, pady=20, command=lambda: button_click(1))
+button_2 = Button(root, text="2", padx=40, pady=20, command=lambda: button_click(2))
+button_3 = Button(root, text="3", padx=40, pady=20, command=lambda: button_click(3))
+button_4 = Button(root, text="4", padx=40, pady=20, command=lambda: button_click(4))
+button_5 = Button(root, text="5", padx=40, pady=20, command=lambda: button_click(5))
+button_6 = Button(root, text="6", padx=40, pady=20, command=lambda: button_click(6))
+button_7 = Button(root, text="7", padx=40, pady=20, command=lambda: button_click(7))
+button_8 = Button(root, text="8", padx=40, pady=20, command=lambda: button_click(8))
+button_9 = Button(root, text="9", padx=40, pady=20, command=lambda: button_click(9))
+button_0 = Button(root, text="0", padx=40, pady=20, command=lambda: button_click(0))
+button_dot = Button(root, text="●", padx=38, pady=20, command=lambda: button_click("."))
 
+button_add = Button(root, text="+", padx=40, pady=20, command=button_add)
+button_equal = Button(root, text="=", padx=89, pady=20, command=button_equal)
+button_clear = Button(root, text="AC", padx=36, pady=20, command=button_clear)
 
-window = Tk()
-window.title("iphone calculator")
+button_subtract = Button(root, text="-", padx=41, pady=20, command=button_subtract)
+button_multiply = Button(root, text="*", padx=40, pady=20, command=button_multiply)
+button_divide = Button(root, text="/", padx=41, pady=20, command=button_divide)
 
-operator = ''
-value = StringVar(value="")
+button_sqt = Button(root, text="\u221A", font=("arail", 10), padx=39, pady=20, command=button_sqt)
+button_square = Button(root, text="X\u00B2", font=("arail", 10), padx=39, pady=20, command=button_square)
 
-Display = Entry(window, font=("arial", 15, "bold"), fg="black", bg="light blue", justify="right", textvariable=value)
-Display.grid(columnspan=4)
+# put all buttons on the screen
+button_1.grid(row=4, column=0)
+button_2.grid(row=4, column=1)
+button_3.grid(row=4, column=2)
 
-# 設定按鈕
-btn7 = Button(window, padx=20, pady=10, bd=10, fg='black', font=('arail', 15, 'bold'), text='7',
-              command=lambda: btn_num(7)).grid(row=1, column=0)
-btn8 = Button(window, padx=20, pady=10, bd=10, fg='black', font=('arail', 15, 'bold'), text='8',
-              command=lambda: btn_num(8)).grid(row=1, column=1)
-btn9 = Button(window, padx=20, pady=10, bd=10, fg='black', font=('arail', 15, 'bold'), text='9',
-              command=lambda: btn_num(9)).grid(row=1, column=2)
-btn_plus = Button(window, padx=20, pady=10, bd=10, fg='black', font=('arail', 15, 'bold'), text='+', command=add).grid(
-    row=1, column=3)
+button_4.grid(row=3, column=0)
+button_5.grid(row=3, column=1)
+button_6.grid(row=3, column=2)
 
-btn4 = Button(window, padx=20, pady=10, bd=10, fg='black', font=('arail', 15, 'bold'), text='4',
-              command=lambda: btn_num(4)).grid(row=2, column=0)
-btn5 = Button(window, padx=20, pady=10, bd=10, fg='black', font=('arail', 15, 'bold'), text='5',
-              command=lambda: btn_num(5)).grid(row=2, column=1)
-btn6 = Button(window, padx=20, pady=10, bd=10, fg='black', font=('arail', 15, 'bold'), text='6',
-              command=lambda: btn_num(6)).grid(row=2, column=2)
-btn_minus = Button(window, padx=20, pady=10, bd=10, fg='black', font=('arail', 15, 'bold'), text='-',
-                   command=substraction).grid(row=2, column=3)
+button_7.grid(row=2, column=0)
+button_8.grid(row=2, column=1)
+button_9.grid(row=2, column=2)
 
-btn1 = Button(window, padx=20, pady=10, bd=10, fg='black', font=('arail', 15, 'bold'), text='1',
-              command=lambda: btn_num(1)).grid(row=3, column=0)
-btn2 = Button(window, padx=20, pady=10, bd=10, fg='black', font=('arail', 15, 'bold'), text='2',
-              command=lambda: btn_num(2)).grid(row=3, column=1)
-btn3 = Button(window, padx=20, pady=10, bd=10, fg='black', font=('arail', 15, 'bold'), text='3',
-              command=lambda: btn_num(3)).grid(row=3, column=2)
-btn_multiply = Button(window, padx=30, pady=10, bd=10, fg='black', font=('arail', 15, 'bold'), text='x',
-                      command=multiplication).grid(row=3, column=3)
+button_0.grid(row=5, column=0)
+button_dot.grid(row=5, column=1)
 
-btn0 = Button(window, padx=20, pady=10, bd=10, fg='black', font=('arail', 15, 'bold'), text='0',
-              command=lambda: btn_num(0)).grid(row=4, column=0)
-# btn_dot = Button(window, padx=20, pady=10, bd=10, fg='black', font=('arail', 15, 'bold'), text='●', command=lambda:btn_num('.')).grid(row=4, column=1)
-btn_division = Button(window, padx=20, pady=10, bd=10, fg='black', font=('arail', 15, 'bold'), text='÷',
-                      command=division).grid(row=4, column=2)
-btn_clear = Button(window, padx=20, pady=10, bd=10, fg='black', font=('arail', 15, 'bold'), text='AC',
-                   command=clear).grid(row=4, column=3)
+button_clear.grid(row=1, column=0)
+button_sqt.grid(row=1, column=1)
+button_square.grid(row=1, column=2)
+button_add.grid(row=4, column=3)
+button_equal.grid(row=5, column=2, columnspan=2)
 
-btn_equal = Button(window, padx=20, pady=10, bd=10, fg='black', font=('arail', 15, 'bold'), text='=',
-                   command=equal).grid(row=5, column=0)
+button_subtract.grid(row=3, column=3)
+button_multiply.grid(row=2, column=3)
+button_divide.grid(row=1, column=3)
 
-window.mainloop()
+root.mainloop()
