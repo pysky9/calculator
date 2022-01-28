@@ -84,7 +84,10 @@ def button_equal():
         e.insert(0, f"{f_num * eval(second_number)}")
 
     if math == "dividsion":
-        e.insert(0, f"{f_num / eval(second_number)}")
+        try:
+            e.insert(0, f"{f_num / eval(second_number)}")
+        except ZeroDivisionError:
+            e.insert(0,"錯誤")
 
     if math == "square root":
         number = eval(second_number)
