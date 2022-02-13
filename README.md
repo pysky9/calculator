@@ -1,1 +1,1 @@
-"# calculator2" 
+Tkinter實作簡易計算機
